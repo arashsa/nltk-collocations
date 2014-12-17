@@ -29,7 +29,8 @@ class CreateCollocations():
                     self.read_files(read_files_path, f_name)
 
         print 'extracting collocations'
-        collocations.simple_bigram_collocations(self.bigram_collocations_file, self.words, 100, 1)
+        # collocations.simple_bigram_collocations(self.bigram_collocations_file, self.words, 100, 1)
+        collocations.simple_trigram_collocations(self.bigram_collocations_file, self.words, 100, 1)
 
     def read_files(self, path, f_name):
         """
@@ -44,5 +45,5 @@ class CreateCollocations():
                 for word in line.split():
                     self.words.append(remove_punctuation(word.lower()))
 
-run = CreateCollocations('/Users/arashsaidi/Work/LBK - prosjekt/lbk_22.04.14/',
-                   'collocations2/saved_test1_LBK.tsv')
+run = CreateCollocations('/Users/arashsaidi/Work/LBK - prosjekt/lbk_22.04.14/TV/',
+                   'collocations_2/test')
