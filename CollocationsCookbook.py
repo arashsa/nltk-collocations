@@ -18,13 +18,19 @@ def remove_punctuation(s):
 
 class Collocations():
 
-    def __init__(self, path):
+    def __init__(self, read_files_path, save_file_path):
         self.words = []
+        self.bigram_collocations_file = open(save_file_path + 'bigrams.txt', 'w')
+        self.trigram_collocations_file = open(save_file_path + 'trigrams.txt', 'w')
 
-        for (path, names, file_names) in walk(path):
+        print 'Started reading files...'
+        for (read_files_path, names, file_names) in walk(read_files_path):
             for f_name in file_names:
                 if '.txt' in f_name and '.okl' not in f_name:
-                    self.read_files(path, f_name)
+                    # print f_name
+                    self.read_files(read_files_path, f_name)
+
+        self.extract()
 
     def read_files(self, path, f_name):
         """
@@ -52,7 +58,12 @@ class Collocations():
         """
 
         # print words
+        print 'Extracting collocations...'
         bcf = BigramCollocationFinder.from_words(self.words)
-        collocations = bcf.nbest(BigramAssocMeasures.likelihood_ratio, 4)
+        collocations = bcf.nbest(BigramAssocMeasures.likelihood_ratio, 100)
         for w in collocations:
-            print w[0], w[1]
+            self.bigram_collocations_file.write(w[0] + ' ' + w[1] + '\n')
+        self.bigram_collocations_file.close()
+
+run = Collocations('/Users/arashsaidi/Work/LBK - prosjekt/lbk_22.04.14/',
+                   'collocations/saved_test1_LBK_Hele')
