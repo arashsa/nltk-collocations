@@ -1,0 +1,3 @@
+[submodule "vislconv"]
+	path = vislconv
+	url = git@github.com:runelk/vislconv.git
